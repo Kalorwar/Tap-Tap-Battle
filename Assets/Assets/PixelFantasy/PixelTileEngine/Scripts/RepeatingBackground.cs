@@ -4,7 +4,7 @@ namespace Assets.PixelFantasy.PixelTileEngine.Scripts
 {
 	public class RepeatingBackground : MonoBehaviour
 	{
-		public float Speed;
+		[SerializeField] private float _speed;
 
 		private float _width;
 
@@ -18,7 +18,7 @@ namespace Assets.PixelFantasy.PixelTileEngine.Scripts
 		/// </summary>
 		public void Update()
 		{
-			transform.localPosition += Speed * Vector3.right * Time.deltaTime;
+			transform.localPosition += _speed * Vector3.right * Time.deltaTime;
 			Repeat();
 		}
 
