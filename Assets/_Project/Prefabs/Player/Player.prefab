@@ -76,18 +76,18 @@ MonoBehaviour:
   Ears: 
   Eyes: Human
   Mouth: 
-  Hair: Hair2
-  Armor: 
+  Hair: Hair13
+  Armor: HeavyKnightArmor
   Helmet: 
-  Weapon: ShortDagger
+  Weapon: RustedShortSword
   Firearm: 
   Shield: 
   Cape: 
   Back: 
   Mask: 
   Horns: 
-  Arms: Human
-  Legs: Human
+  Arms: 
+  Legs: 
   RebuildOnStart: 1
   Character: {fileID: 375063816128229648}
 --- !u!95 &375063816128229654

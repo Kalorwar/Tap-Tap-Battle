@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a698fde6e679423ca67763c81ad673e1, type: 3}
+  m_Name: Enemy Library
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.Scripts.Core.EnemyLibrary
+  _enemyLibraryData:
+    DefaultHealth: 10
+    DefaultReward: 10
+  _bossLibraryData:
+    DefaultHealth: 500
+    DefaultReward: 10
+  _enemiesPrefab:
+  - {fileID: -6805965454618858961, guid: f060db5c7ad46b0488652a88efd87288, type: 3}
+  - {fileID: 6089000366396318681, guid: 9bb067b725363d04fa991206dcac4fac, type: 3}
+  - {fileID: -7858195986566791140, guid: b8e9f1190a758c041a9d2f936ca75aee, type: 3}
+  - {fileID: -6992382873947365063, guid: 5f55718746f0cd74694e05da6ff8a451, type: 3}
+  _bossesPrefabs:
+  - {fileID: 2782257225926921192, guid: 3174592a21f40a24189366c87bbd9268, type: 3}

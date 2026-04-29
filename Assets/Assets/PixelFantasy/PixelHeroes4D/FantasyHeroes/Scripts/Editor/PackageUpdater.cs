@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.Networking;
 
-namespace Assets.PixelFantasy.PixelHeroes4D.FantasyHeroes.Scripts.Editor
-{
-    [InitializeOnLoad]
+
+/*namespace Assets.PixelFantasy.PixelHeroes4D.FantasyHeroes.Scripts.Editor*/
+/*{
+    /*[InitializeOnLoad]
     internal static class PackageUpdater
     {
         private const string PackageId = "324804";
@@ -15,7 +10,7 @@ namespace Assets.PixelFantasy.PixelHeroes4D.FantasyHeroes.Scripts.Editor
 
         private static readonly string PrefsKeyTime = $"PackageUpdater.Time.{PackageId}";
         private static readonly string PrefsKeySkip = $"PackageUpdater.Skip.{PackageId}";
-        
+
         static PackageUpdater()
         {
             if (EditorPrefs.HasKey(PrefsKeyTime))
@@ -32,11 +27,11 @@ namespace Assets.PixelFantasy.PixelHeroes4D.FantasyHeroes.Scripts.Editor
                 if (request.result == UnityWebRequest.Result.Success)
                 {
                     var packageInfo = JsonUtility.FromJson<PackageInfo>(request.downloadHandler.text);
-                    
+
                     if (new Version(packageInfo.version) > new Version(CurrentVersion))
                     {
                         if (EditorPrefs.HasKey(PrefsKeySkip) && EditorPrefs.GetString(PrefsKeySkip) == packageInfo.version) return;
-                        
+
                         var confirm = EditorUtility.DisplayDialog("Package Updater", $"{packageInfo.name} ({CurrentVersion}) is outdated. Do you want to update it to the latest version ({packageInfo.version}) via Package Manager?", "Yes", "No");
 
                         if (confirm)
@@ -72,15 +67,15 @@ namespace Assets.PixelFantasy.PixelHeroes4D.FantasyHeroes.Scripts.Editor
             var request = UnityWebRequest.Post("https://hippogames.dev/api/analytics/event", new Dictionary<string, string> { { "eventName", eventName }, { "paramName", paramName }, { "paramValue", paramValue } });
 
             request.SendWebRequest().completed += _ => request.Dispose();
-        }
+        }#1#
 
-        private class PackageInfo
+        /*private class PackageInfo
         {
             public string version;
             public string name;
             public string category;
             public string id;
             public string publisher;
-        }
+        }#1#
     }
-}
+}*/

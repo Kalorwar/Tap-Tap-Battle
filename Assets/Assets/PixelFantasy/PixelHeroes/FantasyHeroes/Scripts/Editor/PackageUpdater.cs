@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEditor;
@@ -83,4 +83,4 @@ namespace Assets.PixelFantasy.PixelHeroes.FantasyHeroes.Scripts.Editor
             public string publisher;
         }
     }
-}
+}*/

@@ -85,7 +85,7 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4723107735738678597, guid: 0e4b6973956340fc8813f55b8d23c971, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.32, y: 0.32}
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_CategoryHash: 0.009161512
   m_labelHash: 0.00000040954276
   m_SpriteKey: 1.3971405e-28
-  m_SpriteHash: 0
+  m_SpriteHash: 288431053
 --- !u!1 &8752643455295444258
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,9 +132,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8752643455295444269}
-  - component: {fileID: 5215687712149261054}
-  - component: {fileID: 5598128800356095458}
   - component: {fileID: 8752643455295444271}
+  - component: {fileID: 6089000366396318681}
   m_Layer: 0
   m_Name: BlueWolf
   m_TagString: Untagged
@@ -158,33 +157,6 @@ Transform:
   - {fileID: 8752643455222384167}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5215687712149261054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8752643455295444258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e21cafac84143729db30efa3b827aa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Body: {fileID: 8752643455222384160}
-  Animator: {fileID: 8752643455295444271}
-  AudioSource: {fileID: 0}
---- !u!114 &5598128800356095458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8752643455295444258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e5bf41b75130d841bf3666dc0e7fa00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &8752643455295444271
 Animator:
   serializedVersion: 7
@@ -207,3 +179,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6089000366396318681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8752643455295444258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91790dc64ed643c39e3a3b17cf25d44c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.Scripts.Core.Enemy
