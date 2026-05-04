@@ -1,40 +1,42 @@
-﻿using UnityEngine;
+﻿using System;
+using R3;
+using UnityEngine;
 
 namespace _Project.Scripts.Core
 {
-    public class SeedService
+    public class SeedService : IDisposable
     {
         private const string SeedSaveKey = "EnemySpawnSeed";
-        private int _currentSeed;
+        private readonly CompositeDisposable _subscription = new();
 
         public SeedService()
         {
+            LevelCompletedSignal.OnLevelCompleted.Subscribe(_ => ChangeSeed())
+                .AddTo(_subscription);
             Load();
         }
 
-        public int CurrentSeed => _currentSeed;
+        public int CurrentSeed { get; private set; }
 
-        public void GenerateNewSeed()
+        public void Dispose()
         {
-            _currentSeed = Random.Range(int.MinValue, int.MaxValue);
-            Save();
         }
 
-        public void SetSeed(int seed)
+        private void ChangeSeed()
         {
-            _currentSeed = seed;
+            CurrentSeed += 1;
             Save();
         }
 
         private void Save()
         {
-            PlayerPrefs.SetInt(SeedSaveKey, _currentSeed);
+            PlayerPrefs.SetInt(SeedSaveKey, CurrentSeed);
             PlayerPrefs.Save();
         }
 
         private void Load()
         {
-            _currentSeed = PlayerPrefs.GetInt(SeedSaveKey, Random.Range(int.MinValue, int.MaxValue));
+            CurrentSeed = PlayerPrefs.GetInt(SeedSaveKey, 1);
         }
     }
 }

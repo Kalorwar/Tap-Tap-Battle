@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Project.Scripts.Core
+namespace _Project.Scripts.CurrencyController
 {
     public class CurrencyController : ICurrencyController
     {

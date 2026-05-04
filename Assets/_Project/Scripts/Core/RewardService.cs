@@ -1,4 +1,5 @@
 ﻿using System;
+using _Project.Scripts.CurrencyController;
 using R3;
 using UnityEngine;
 

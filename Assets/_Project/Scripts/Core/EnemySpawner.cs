@@ -42,6 +42,7 @@ namespace _Project.Scripts.Core
         private void OnDisable()
         {
             _subscription?.Dispose();
+            _seedService?.Dispose();
         }
 
         private void Spawn()

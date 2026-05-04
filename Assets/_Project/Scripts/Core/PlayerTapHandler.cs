@@ -1,4 +1,5 @@
-﻿using Assets.PixelFantasy.Common.Scripts;
+﻿using _Project.Scripts.Events;
+using Assets.PixelFantasy.Common.Scripts;
 using R3;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ namespace _Project.Scripts.Core
 
         private void OnEnable()
         {
-            TapSignal.OnTapped.Subscribe(_ => AttackAnimation()).AddTo(_disposables);
+            TapEvent.OnTapped.Subscribe(_ => AttackAnimation()).AddTo(_disposables);
         }
 
         private void OnDisable()

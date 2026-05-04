@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using _Project.Scripts.Datas;
+using _Project.Scripts.Enemies;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Random = System.Random;
 
 namespace _Project.Scripts.Core
 {
@@ -26,8 +28,11 @@ namespace _Project.Scripts.Core
                 return null;
             }
 
-            Random.InitState(seed);
-            var index = Random.Range(0, _enemiesPrefab.Count);
+            var random = new Random(seed);
+
+            var index = random.Next(0, _enemiesPrefab.Count);
+            Debug.Log(index);
+            Debug.Log(seed);
             return _enemiesPrefab[index];
         }
 
@@ -39,8 +44,8 @@ namespace _Project.Scripts.Core
                 return null;
             }
 
-            Random.InitState(seed);
-            var index = Random.Range(0, _bossesPrefabs.Count);
+            var random = new Random(seed);
+            var index = random.Next(0, _enemiesPrefab.Count);
             return _bossesPrefabs[index];
         }
 

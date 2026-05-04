@@ -1,4 +1,4 @@
-﻿namespace _Project.Scripts.Core
+﻿namespace _Project.Scripts.CurrencyController
 {
     public enum CurrencyType
     {

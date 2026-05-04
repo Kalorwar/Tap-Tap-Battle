@@ -1,6 +1,6 @@
 ﻿using R3;
 
-namespace _Project.Scripts.Core
+namespace _Project.Scripts.Events
 {
     public static class EnemyDiedEvent
     {

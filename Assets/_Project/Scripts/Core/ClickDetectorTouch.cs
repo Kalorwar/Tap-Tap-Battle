@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Project.Scripts.Events;
 using R3;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -35,7 +36,7 @@ namespace _Project.Scripts.Core
                         Debug.Log("[Tap]");
                     }
 
-                    TapSignal.Emit();
+                    TapEvent.Emit();
                 })
                 .AddTo(_disposables);
         }

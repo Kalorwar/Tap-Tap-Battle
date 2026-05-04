@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using _Project.Scripts.CurrencyController;
+using UnityEngine;
 using Zenject;
 
 namespace _Project.Scripts.Core
@@ -11,7 +12,7 @@ namespace _Project.Scripts.Core
         {
             Container.Bind<EnemyLibrary>().FromInstance(_enemyLibrary).AsSingle().NonLazy();
             Container.Bind<DamageInfo>().AsSingle().NonLazy();
-            Container.Bind<ICurrencyController>().To<CurrencyController>().AsSingle().NonLazy();
+            Container.Bind<ICurrencyController>().To<CurrencyController.CurrencyController>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<LevelCountService>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<DamageController>().AsSingle().NonLazy();
             Container.Bind<SeedService>().AsSingle().NonLazy();

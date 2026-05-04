@@ -1,4 +1,5 @@
 ﻿using System;
+using _Project.Scripts.Events;
 using R3;
 
 namespace _Project.Scripts.Core
@@ -10,7 +11,7 @@ namespace _Project.Scripts.Core
 
         public DamageController(DamageInfo damageInfo)
         {
-            TapSignal.OnTapped.Subscribe(_ => ApplyDamage(damageInfo.DamageOnTap));
+            TapEvent.OnTapped.Subscribe(_ => ApplyDamage(damageInfo.DamageOnTap));
         }
 
         public void Dispose()
