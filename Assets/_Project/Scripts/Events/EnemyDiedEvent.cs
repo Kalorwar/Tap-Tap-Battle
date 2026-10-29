@@ -1,15 +1,14 @@
-﻿using R3;
+using System;
 
 namespace _Project.Scripts.Events
 {
     public static class EnemyDiedEvent
     {
-        private static readonly Subject<Unit> OnEnemyDeadSubject = new();
-        public static Observable<Unit> OnEnemyDead => OnEnemyDeadSubject;
+        public static event Action OnEnemyDead;
 
         public static void Emit()
         {
-            OnEnemyDeadSubject.OnNext(Unit.Default);
+            OnEnemyDead?.Invoke();
         }
     }
 }

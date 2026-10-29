@@ -1,5 +1,5 @@
-﻿using System;
-using R3;
+using System;
+using _Project.Scripts.Events;
 using UnityEngine;
 
 namespace _Project.Scripts.Core
@@ -7,12 +7,10 @@ namespace _Project.Scripts.Core
     public class SeedService : IDisposable
     {
         private const string SeedSaveKey = "EnemySpawnSeed";
-        private readonly CompositeDisposable _subscription = new();
 
         public SeedService()
         {
-            LevelCompletedSignal.OnLevelCompleted.Subscribe(_ => ChangeSeed())
-                .AddTo(_subscription);
+            LevelCompletedSignal.OnLevelCompleted += OnLevelCompleted;
             Load();
         }
 
@@ -20,9 +18,10 @@ namespace _Project.Scripts.Core
 
         public void Dispose()
         {
+            LevelCompletedSignal.OnLevelCompleted -= OnLevelCompleted;
         }
 
-        private void ChangeSeed()
+        private void OnLevelCompleted(int level)
         {
             CurrentSeed += 1;
             Save();

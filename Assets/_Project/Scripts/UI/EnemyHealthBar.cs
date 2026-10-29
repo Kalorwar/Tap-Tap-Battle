@@ -1,7 +1,6 @@
 using _Project.Scripts.Core;
 using _Project.Scripts.Enemies;
 using _Project.Scripts.Events;
-using R3;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,7 +30,6 @@ namespace _Project.Scripts.UI
 
         [SerializeField] private float _shakeStrength = 10f;
 
-        private readonly CompositeDisposable _disposables = new();
         private DamageChunkPool _chunkPool;
         private DamageChunkAnimationSettings _chunkSettings;
         private HealthBarShaker _shaker;
@@ -55,18 +53,22 @@ namespace _Project.Scripts.UI
                 _fillRect,
                 _shakeDuration,
                 _shakeStrength);
+        }
 
-            EnemyHitSignal.OnEnemyHit.Subscribe(OnHealthChanged)
-                .AddTo(_disposables);
+        private void OnEnable()
+        {
+            EnemyHitSignal.OnEnemyHit += OnHealthChanged;
+            LevelCompletedSignal.OnLevelCompleted += OnLevelCompleted;
+        }
 
-            LevelCompletedSignal.OnLevelCompleted
-                .Subscribe(_ => OnLevelCompleted())
-                .AddTo(_disposables);
+        private void OnDisable()
+        {
+            EnemyHitSignal.OnEnemyHit -= OnHealthChanged;
+            LevelCompletedSignal.OnLevelCompleted -= OnLevelCompleted;
         }
 
         private void OnDestroy()
         {
-            _disposables.Dispose();
             _shaker?.Dispose();
             _chunkPool?.Dispose();
         }
@@ -84,7 +86,7 @@ namespace _Project.Scripts.UI
             _shaker.Play();
         }
 
-        private void OnLevelCompleted()
+        private void OnLevelCompleted(int level)
         {
             _view.ResetToFull();
             _shaker.Reset();

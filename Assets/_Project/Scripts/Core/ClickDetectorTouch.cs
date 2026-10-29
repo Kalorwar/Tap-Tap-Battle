@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using _Project.Scripts.Events;
-using R3;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.EnhancedTouch;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
-using TouchPhase = UnityEngine.InputSystem.TouchPhase;
+using TouchPhase = UnityEngine.InputSystem.EnhancedTouch.TouchPhase;
 
 namespace _Project.Scripts.Core
 {
@@ -13,7 +12,6 @@ namespace _Project.Scripts.Core
     {
         [SerializeField] private bool _debugLog;
 
-        private readonly CompositeDisposable _disposables = new();
         private readonly List<RaycastResult> _raycastResults = new(8);
         private PointerEventData _eventData;
         private EventSystem _eventSystem;
@@ -23,33 +21,32 @@ namespace _Project.Scripts.Core
             EnhancedTouchSupport.Enable();
             _eventSystem = EventSystem.current;
             _eventData = new PointerEventData(_eventSystem);
-
-            Observable.EveryUpdate()
-                .Where(_ => Touch.activeTouches.Count > 0)
-                .Select(_ => Touch.activeTouches[0])
-                .Where(touch => touch.phase == TouchPhase.Began)
-                .Where(_ => !IsPointerOverUI())
-                .Subscribe(_ =>
-                {
-                    if (_debugLog)
-                    {
-                        Debug.Log("[Tap]");
-                    }
-
-                    TapEvent.Emit();
-                })
-                .AddTo(_disposables);
         }
 
-        private void OnDestroy()
+        private void Update()
         {
-            _disposables.Dispose();
-        }
+            if (Touch.activeTouches.Count == 0)
+            {
+                return;
+            }
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void Initialize()
-        {
-            ObservableSystem.DefaultFrameProvider = UnityFrameProvider.Update;
+            var touch = Touch.activeTouches[0];
+            if (touch.phase != TouchPhase.Began)
+            {
+                return;
+            }
+
+            if (IsPointerOverUI())
+            {
+                return;
+            }
+
+            if (_debugLog)
+            {
+                Debug.Log("[Tap]");
+            }
+
+            TapEvent.Emit();
         }
 
         private bool IsPointerOverUI()

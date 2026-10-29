@@ -1,5 +1,5 @@
-﻿using System;
-using R3;
+using System;
+using _Project.Scripts.Events;
 using UnityEngine;
 using Zenject;
 
@@ -13,7 +13,6 @@ namespace _Project.Scripts.Core
         private EnemyLibrary _enemyLibrary;
         private LevelCountService _levelCountService;
         private SeedService _seedService;
-        private IDisposable _subscription;
 
         [Inject]
         private void Construct(EnemyLibrary enemyLibrary, LevelCountService levelCountService,
@@ -36,13 +35,18 @@ namespace _Project.Scripts.Core
 
         private void OnEnable()
         {
-            _subscription = LevelCompletedSignal.OnLevelCompleted.Subscribe(_ => Spawn());
+            LevelCompletedSignal.OnLevelCompleted += OnLevelCompleted;
         }
 
         private void OnDisable()
         {
-            _subscription?.Dispose();
+            LevelCompletedSignal.OnLevelCompleted -= OnLevelCompleted;
             _seedService?.Dispose();
+        }
+
+        private void OnLevelCompleted(int level)
+        {
+            Spawn();
         }
 
         private void Spawn()
@@ -59,6 +63,7 @@ namespace _Project.Scripts.Core
 
             enemy.Configure(health);
             _damageController.SetTarget(enemy);
+            EnemySpawnedSignal.Emit(new EnemySpawnedInfo(enemy, false));
         }
     }
 }

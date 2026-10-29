@@ -1,22 +1,22 @@
-﻿using System;
+using System;
 using _Project.Scripts.Events;
-using R3;
 
 namespace _Project.Scripts.Core
 {
     public class DamageController : IDisposable
     {
+        private readonly DamageInfo _damageInfo;
         private IDamageable _damageable;
-        private CompositeDisposable _disposables;
 
         public DamageController(DamageInfo damageInfo)
         {
-            TapEvent.OnTapped.Subscribe(_ => ApplyDamage(damageInfo.DamageOnTap));
+            _damageInfo = damageInfo;
+            TapEvent.OnTapped += OnTapped;
         }
 
         public void Dispose()
         {
-            _disposables?.Dispose();
+            TapEvent.OnTapped -= OnTapped;
         }
 
         public void SetTarget(IDamageable damageable)
@@ -24,9 +24,14 @@ namespace _Project.Scripts.Core
             _damageable = damageable;
         }
 
-        private void ApplyDamage(float damage)
+        private void OnTapped()
         {
-            _damageable.TakeDamage(damage);
+            if (_damageable == null)
+            {
+                return;
+            }
+
+            _damageable.TakeDamage(_damageInfo.DamageOnTap);
         }
     }
 }

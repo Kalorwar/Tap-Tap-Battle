@@ -1,35 +1,30 @@
-﻿using _Project.Scripts.Events;
+using _Project.Scripts.Events;
 using Assets.PixelFantasy.Common.Scripts;
-using R3;
 using UnityEngine;
 
 namespace _Project.Scripts.Core
 {
     public class PlayerTapHandler : MonoBehaviour
     {
-        private readonly CompositeDisposable _disposables = new();
-        private Creature _character;
         private UnitAnimation _unitAnimation;
 
         private void Awake()
         {
-            _character = GetComponent<Creature>();
-            _unitAnimation = new UnitAnimation(_character);
+            _unitAnimation = new UnitAnimation(GetComponent<Creature>());
         }
 
         private void OnEnable()
         {
-            TapEvent.OnTapped.Subscribe(_ => AttackAnimation()).AddTo(_disposables);
+            TapEvent.OnTapped += OnTapped;
         }
 
         private void OnDisable()
         {
-            _disposables.Dispose();
+            TapEvent.OnTapped -= OnTapped;
         }
 
-        private void AttackAnimation()
+        private void OnTapped()
         {
-            Debug.Log("Attack");
             _unitAnimation.Slash();
         }
     }

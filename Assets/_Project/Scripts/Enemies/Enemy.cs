@@ -24,6 +24,9 @@ namespace _Project.Scripts.Enemies
 
         private bool IsDead => _currentHealth <= 0;
 
+        public bool IsAlive => !IsDead;
+        public float MaxHealth => _maxHealth;
+
         public void TakeDamage(float damage)
         {
             damage = MathfRound.Round(damage);

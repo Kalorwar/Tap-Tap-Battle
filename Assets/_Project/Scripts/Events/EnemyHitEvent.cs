@@ -1,16 +1,15 @@
-﻿using _Project.Scripts.Enemies;
-using R3;
+using System;
+using _Project.Scripts.Enemies;
 
 namespace _Project.Scripts.Events
 {
     public static class EnemyHitSignal
     {
-        private static readonly Subject<EnemyHitEvent> OnEnemyHitSubject = new();
-        public static Observable<EnemyHitEvent> OnEnemyHit => OnEnemyHitSubject;
+        public static event Action<EnemyHitEvent> OnEnemyHit;
 
         public static void Emit(EnemyHitEvent evt)
         {
-            OnEnemyHitSubject.OnNext(evt);
+            OnEnemyHit?.Invoke(evt);
         }
     }
 }

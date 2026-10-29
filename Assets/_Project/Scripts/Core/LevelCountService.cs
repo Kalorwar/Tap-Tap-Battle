@@ -1,37 +1,34 @@
-﻿using System;
+using System;
 using _Project.Scripts.Events;
-using R3;
 using UnityEngine;
 
 namespace _Project.Scripts.Core
 {
     public static class LevelCompletedSignal
     {
-        private static readonly Subject<int> OnLevelCompletedSubject = new();
-        public static Observable<int> OnLevelCompleted => OnLevelCompletedSubject;
+        public static event Action<int> OnLevelCompleted;
 
         public static void Emit(int level)
         {
-            OnLevelCompletedSubject.OnNext(level);
+            OnLevelCompleted?.Invoke(level);
         }
     }
 
     public class LevelCountService : IDisposable
     {
         private const string LevelNumberSaveKey = "LevelNumberSaveKey";
-        private readonly IDisposable _subscription;
 
         public LevelCountService()
         {
             Load();
-            _subscription = EnemyDiedEvent.OnEnemyDead.Subscribe(_ => IncreaseLevel());
+            EnemyDiedEvent.OnEnemyDead += OnEnemyDead;
         }
 
         public int LevelCount { get; private set; }
 
         public void Dispose()
         {
-            _subscription?.Dispose();
+            EnemyDiedEvent.OnEnemyDead -= OnEnemyDead;
         }
 
         public void IncreaseLevel()
@@ -51,6 +48,11 @@ namespace _Project.Scripts.Core
 
             LevelCount = level;
             Save();
+        }
+
+        private void OnEnemyDead()
+        {
+            IncreaseLevel();
         }
 
         private void Save()
