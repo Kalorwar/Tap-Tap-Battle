@@ -16,27 +16,31 @@ namespace _Project.Scripts.Core
 
     public class LevelCountService : IDisposable
     {
-        private const string LevelNumberSaveKey = "LevelNumberSaveKey";
+        private const int KillsPerLevel = 5;
+        private const int BossLevelInterval = 10;
+
+        private const string LevelSaveKey = "Progression.Level";
+        private const string KillsOnLevelSaveKey = "Progression.KillsOnLevel";
+        private const string BossesDefeatedSaveKey = "Progression.BossesDefeated";
 
         public LevelCountService()
         {
             Load();
-            EnemyDiedEvent.OnEnemyDead += OnEnemyDead;
+            EnemyKilledSignal.OnEnemyKilled += OnEnemyKilled;
         }
 
         public int LevelCount { get; private set; }
 
+        public int KillsOnLevel { get; private set; }
+
+        public int BossesDefeated { get; private set; }
+
+        // Every 10th level is a single boss fight instead of 5 enemies
+        public bool IsBossLevel => LevelCount % BossLevelInterval == 0;
+
         public void Dispose()
         {
-            EnemyDiedEvent.OnEnemyDead -= OnEnemyDead;
-        }
-
-        public void IncreaseLevel()
-        {
-            Debug.Log($"Level {LevelCount} has been completed");
-            LevelCount++;
-            LevelCompletedSignal.Emit(LevelCount);
-            Save();
+            EnemyKilledSignal.OnEnemyKilled -= OnEnemyKilled;
         }
 
         public void SetLevel(int level)
@@ -50,21 +54,55 @@ namespace _Project.Scripts.Core
             Save();
         }
 
-        private void OnEnemyDead()
+        private void OnEnemyKilled(EnemyKilledInfo info)
         {
-            IncreaseLevel();
+            if (info.IsBoss)
+            {
+                CompleteBossLevel();
+                return;
+            }
+
+            KillsOnLevel++;
+            if (KillsOnLevel < KillsPerLevel)
+            {
+                Save();
+                return;
+            }
+
+            CompleteLevel();
+        }
+
+        private void CompleteLevel()
+        {
+            Debug.Log($"Level {LevelCount} has been completed");
+            LevelCount++;
+            KillsOnLevel = 0;
+            Save();
+            LevelCompletedSignal.Emit(LevelCount);
+        }
+
+        private void CompleteBossLevel()
+        {
+            BossesDefeated++;
+            Save();
+            BossDefeatedSignal.Emit(BossesDefeated);
+            CompleteLevel();
         }
 
         private void Save()
         {
-            PlayerPrefs.SetInt(LevelNumberSaveKey, LevelCount);
+            PlayerPrefs.SetInt(LevelSaveKey, LevelCount);
+            PlayerPrefs.SetInt(KillsOnLevelSaveKey, KillsOnLevel);
+            PlayerPrefs.SetInt(BossesDefeatedSaveKey, BossesDefeated);
             PlayerPrefs.Save();
         }
 
         private void Load()
         {
-            LevelCount = PlayerPrefs.GetInt(LevelNumberSaveKey, 1);
-            Debug.Log($"Level {LevelCount} has been loaded");
+            LevelCount = Mathf.Max(1, PlayerPrefs.GetInt(LevelSaveKey, 1));
+            KillsOnLevel = Mathf.Clamp(PlayerPrefs.GetInt(KillsOnLevelSaveKey, 0), 0, KillsPerLevel - 1);
+            BossesDefeated = Mathf.Max(0, PlayerPrefs.GetInt(BossesDefeatedSaveKey, 0));
+            Debug.Log($"Level {LevelCount} with {KillsOnLevel} kills has been loaded");
         }
     }
 }

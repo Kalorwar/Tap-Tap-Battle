@@ -1,4 +1,7 @@
-﻿using _Project.Scripts.CurrencyController;
+using System.Collections.Generic;
+using _Project.Scripts.Assistants;
+using _Project.Scripts.CurrencyController;
+using _Project.Scripts.Upgrades;
 using UnityEngine;
 using Zenject;
 
@@ -7,6 +10,7 @@ namespace _Project.Scripts.Core
     public class LevelInstaller : MonoInstaller
     {
         [SerializeField] private EnemyLibrary _enemyLibrary;
+        [SerializeField] private List<AssistantConfig> _assistantConfigs = new();
 
         public override void InstallBindings()
         {
@@ -17,6 +21,10 @@ namespace _Project.Scripts.Core
             Container.BindInterfacesAndSelfTo<LevelCountService>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<DamageController>().AsSingle().NonLazy();
             Container.Bind<SeedService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<BossFightService>().AsSingle().NonLazy();
+            Container.Bind<TapDamageUpgradeService>().AsSingle().NonLazy();
+            Container.Bind<IReadOnlyList<AssistantConfig>>().FromInstance(_assistantConfigs).AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<AssistantService>().AsSingle().NonLazy();
         }
     }
 }

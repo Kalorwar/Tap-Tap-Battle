@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.EnhancedTouch;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
-using TouchPhase = UnityEngine.InputSystem.EnhancedTouch.TouchPhase;
+using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
 namespace _Project.Scripts.Core
 {

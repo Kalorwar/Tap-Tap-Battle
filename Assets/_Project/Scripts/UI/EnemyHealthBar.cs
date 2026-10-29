@@ -45,10 +45,8 @@ namespace _Project.Scripts.UI
 
             _chunkSettings =
                 new DamageChunkAnimationSettings(_chunkFlashDuration, _chunkFadeDuration, _chunkMoveDistance);
-        }
 
-        private void Start()
-        {
+            // Created in Awake: the first enemy can spawn from another component's Start before ours
             _shaker = new HealthBarShaker(
                 _fillRect,
                 _shakeDuration,
@@ -59,12 +57,14 @@ namespace _Project.Scripts.UI
         {
             EnemyHitSignal.OnEnemyHit += OnHealthChanged;
             LevelCompletedSignal.OnLevelCompleted += OnLevelCompleted;
+            EnemySpawnedSignal.OnEnemySpawned += OnEnemySpawned;
         }
 
         private void OnDisable()
         {
             EnemyHitSignal.OnEnemyHit -= OnHealthChanged;
             LevelCompletedSignal.OnLevelCompleted -= OnLevelCompleted;
+            EnemySpawnedSignal.OnEnemySpawned -= OnEnemySpawned;
         }
 
         private void OnDestroy()
@@ -88,6 +88,13 @@ namespace _Project.Scripts.UI
 
         private void OnLevelCompleted(int level)
         {
+            _view.ResetToFull();
+            _shaker.Reset();
+        }
+
+        private void OnEnemySpawned(EnemySpawnedInfo info)
+        {
+            // A respawned boss (timeout) and each new enemy must show a full bar
             _view.ResetToFull();
             _shaker.Reset();
         }

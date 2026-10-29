@@ -9,6 +9,8 @@ namespace _Project.Scripts.Core
     [CreateAssetMenu(menuName = "EnemyLibrary")]
     public class EnemyLibrary : ScriptableObject
     {
+        private const float BossHealthMultiplier = 5f;
+
         [Header("Datas")] [SerializeField] private EnemyLibraryData _enemyLibraryData;
 
         [SerializeField] private BossLibraryData _bossLibraryData;
@@ -43,7 +45,7 @@ namespace _Project.Scripts.Core
             }
 
             var random = new Random(seed);
-            var index = random.Next(0, _enemiesPrefab.Count);
+            var index = random.Next(0, _bossesPrefabs.Count);
             return _bossesPrefabs[index];
         }
 
@@ -52,9 +54,9 @@ namespace _Project.Scripts.Core
             return _enemyLibraryData.DefaultHealth * Mathf.Pow(1.15f, level - 1);
         }
 
-        public int CalculateBossHealth(int level)
+        public float CalculateBossHealth(int level)
         {
-            return Mathf.RoundToInt(_bossLibraryData.DefaultHealth * Mathf.Pow(1.15f, level - 1));
+            return CalculateHealth(level) * BossHealthMultiplier;
         }
     }
 }
