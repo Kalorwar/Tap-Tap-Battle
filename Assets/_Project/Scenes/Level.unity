@@ -608,7 +608,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -3310,11 +3310,11 @@ MonoBehaviour:
   _targetRect: {fileID: 4459502}
   _canvas: {fileID: 667140665}
   _coinsMin: 4
-  _coinsMax: 7
-  _spawnRadius: 40
+  _coinsMax: 5
+  _spawnRadius: 22
   _flightDuration: 0.5
   _stagger: 0.03
-  _coinSprite: {fileID: 0}
+  _coinSprite: {fileID: 648220389669620218, guid: 5933fcef5d3eb8443aa56c4c3eb1529a, type: 3}
 --- !u!114 &667140664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3888,7 +3888,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -5881,7 +5881,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2

@@ -78,7 +78,10 @@ namespace _Project.Scripts.UI
         {
             UpgradeChangedSignal.OnUpgradeChanged -= OnUpgradeChanged;
             AssistantChangedSignal.OnAssistantChanged -= OnAssistantChanged;
-            _currency.OnCurrencyChange -= OnUpgradeChanged;
+            if (_currency != null)
+            {
+                _currency.OnCurrencyChange -= OnUpgradeChanged;
+            }
         }
 
         private void TogglePanel()

@@ -11,7 +11,7 @@ namespace _Project.Scripts.UI
     /// </summary>
     public class CoinFlySystem : MonoBehaviour
     {
-        private const float CoinSize = 14f;
+        private const float CoinSize = 10f;
         private const float PopDuration = 0.15f;
         private const float FadeDuration = 0.08f;
 
@@ -20,8 +20,8 @@ namespace _Project.Scripts.UI
         [SerializeField] private RectTransform _targetRect;
         [SerializeField] private Canvas _canvas;
         [SerializeField] private int _coinsMin = 4;
-        [SerializeField] private int _coinsMax = 7;
-        [SerializeField] private float _spawnRadius = 40f;
+        [SerializeField] private int _coinsMax = 5;
+        [SerializeField] private float _spawnRadius = 22f;
         [SerializeField] private float _flightDuration = 0.5f;
         [SerializeField] private float _stagger = 0.03f;
         [SerializeField] private Sprite _coinSprite;
@@ -69,21 +69,26 @@ namespace _Project.Scripts.UI
             }
 
             var targetPoint = GetTargetPoint();
+            var spawnPoint = (Vector2)screenPoint / _canvas.scaleFactor;
             var maxCoins = Mathf.Max(_coinsMin, _coinsMax);
             var coinCount = Random.Range(_coinsMin, maxCoins + 1);
 
             for (var i = 0; i < coinCount; i++)
             {
-                SpawnCoin(screenPoint, targetPoint, i * _stagger);
+                SpawnCoin(spawnPoint, targetPoint, i * _stagger);
             }
         }
 
-        // Overlay canvas lives in screen space, otherwise screen coords are used as canvas coords as is.
+        // Points live in canvas units (screen px / scaleFactor), origin at the canvas bottom-left.
         private Vector2 GetTargetPoint()
         {
-            return _canvas.renderMode == RenderMode.ScreenSpaceOverlay
-                ? (Vector2)_targetRect.position
-                : _targetRect.anchoredPosition;
+            // Target may sit in another canvas (e.g. ScreenSpaceCamera): convert its pivot to screen px first
+            var targetCanvas = _targetRect.GetComponentInParent<Canvas>();
+            var targetCamera = targetCanvas != null && targetCanvas.renderMode != RenderMode.ScreenSpaceOverlay
+                ? targetCanvas.worldCamera
+                : null;
+            var screenPos = RectTransformUtility.WorldToScreenPoint(targetCamera, _targetRect.position);
+            return screenPos / _canvas.scaleFactor;
         }
 
         private void SpawnCoin(Vector2 spawnPoint, Vector2 targetPoint, float delay)
@@ -109,7 +114,7 @@ namespace _Project.Scripts.UI
 
             var sequence = DOTween.Sequence();
             sequence.AppendInterval(delay);
-            sequence.Append(rect.DOScale(Vector3.one, PopDuration).SetEase(Ease.OutBack));
+            sequence.Append(rect.DOScale(Vector3.one, PopDuration).SetEase(Ease.OutQuad));
             sequence.Join(rect.DOAnchorPos(popPoint, PopDuration).SetEase(Ease.OutQuad));
             sequence.Append(rect.DOAnchorPos(targetPoint, _flightDuration).SetEase(Ease.InQuad));
             sequence.Append(image.DOFade(0f, FadeDuration));

@@ -31,7 +31,10 @@ namespace _Project.Scripts.UI
 
         private void OnDisable()
         {
-            _currencyController.OnCurrencyChange -= UpdateUI;
+            if (_currencyController != null)
+            {
+                _currencyController.OnCurrencyChange -= UpdateUI;
+            }
         }
 
         private void UpdateUI()

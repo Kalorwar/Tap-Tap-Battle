@@ -55,7 +55,10 @@ namespace _Project.Scripts.Core
         {
             LevelCompletedSignal.OnLevelCompleted -= OnLevelCompleted;
             EnemyDiedEvent.OnEnemyDead -= OnEnemyDead;
-            _bossFightService.BossTimedOut -= OnBossTimedOut;
+            if (_bossFightService != null)
+            {
+                _bossFightService.BossTimedOut -= OnBossTimedOut;
+            }
             _seedService?.Dispose();
         }
 
