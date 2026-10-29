@@ -24,15 +24,13 @@ namespace _Project.Scripts.Core
         {
             if (_enemiesPrefab == null || _enemiesPrefab.Count == 0)
             {
-                Debug.LogError("EnemyLibrary: нет префабов обычных мобов!");
+                Debug.LogError("EnemyLibrary: no have any simple enemy prefab!");
                 return null;
             }
 
             var random = new Random(seed);
 
             var index = random.Next(0, _enemiesPrefab.Count);
-            Debug.Log(index);
-            Debug.Log(seed);
             return _enemiesPrefab[index];
         }
 
@@ -40,7 +38,7 @@ namespace _Project.Scripts.Core
         {
             if (_bossesPrefabs == null || _bossesPrefabs.Count == 0)
             {
-                Debug.LogError("EnemyLibrary: нет префабов боссов!");
+                Debug.LogError("EnemyLibrary: no have any boss prefab!");
                 return null;
             }
 

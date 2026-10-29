@@ -17,6 +17,8 @@ namespace _Project.Scripts.CurrencyController
             _currencyValues[CurrencyType.HardCurrency] = Load(HardCurrencyKey);
         }
 
+        public event Action OnCurrencyChange;
+
         public float GetAmount(CurrencyType type)
         {
             return _currencyValues[type];
@@ -31,6 +33,7 @@ namespace _Project.Scripts.CurrencyController
 
             _currencyValues[currencyType] += amount;
             Save(currencyType);
+            OnCurrencyChange?.Invoke();
         }
 
         public bool TryRemoveCurrency(float amount, CurrencyType currencyType)
@@ -47,6 +50,7 @@ namespace _Project.Scripts.CurrencyController
 
             _currencyValues[currencyType] -= amount;
             Save(currencyType);
+            OnCurrencyChange?.Invoke();
             return true;
         }
 

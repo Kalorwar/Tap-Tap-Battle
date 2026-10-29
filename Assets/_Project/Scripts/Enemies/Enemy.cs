@@ -26,11 +26,11 @@ namespace _Project.Scripts.Enemies
 
         public void TakeDamage(float damage)
         {
-            damage = Round(damage);
+            damage = MathfRound.Round(damage);
 
             var actualDamage = Mathf.Min(damage, _currentHealth);
 
-            _currentHealth = Round(_currentHealth - actualDamage);
+            _currentHealth = MathfRound.Round(_currentHealth - actualDamage);
             if (_currentHealth < 0)
             {
                 _currentHealth = 0;
@@ -47,13 +47,8 @@ namespace _Project.Scripts.Enemies
 
         public void Configure(float health)
         {
-            _maxHealth = Round(health);
+            _maxHealth = MathfRound.Round(health);
             _currentHealth = _maxHealth;
-        }
-
-        private float Round(float value)
-        {
-            return Mathf.Round(value * 10f) / 10f;
         }
     }
 }

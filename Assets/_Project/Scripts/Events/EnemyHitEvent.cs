@@ -5,12 +5,12 @@ namespace _Project.Scripts.Events
 {
     public static class EnemyHitSignal
     {
-        private static readonly Subject<EnemyHitEvent> _onEnemyHit = new();
-        public static Observable<EnemyHitEvent> OnEnemyHit => _onEnemyHit;
+        private static readonly Subject<EnemyHitEvent> OnEnemyHitSubject = new();
+        public static Observable<EnemyHitEvent> OnEnemyHit => OnEnemyHitSubject;
 
         public static void Emit(EnemyHitEvent evt)
         {
-            _onEnemyHit.OnNext(evt);
+            OnEnemyHitSubject.OnNext(evt);
         }
     }
 }

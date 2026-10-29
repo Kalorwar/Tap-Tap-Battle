@@ -36,9 +36,9 @@ namespace _Project.Scripts.Core
 
         public void IncreaseLevel()
         {
+            Debug.Log($"Level {LevelCount} has been completed");
             LevelCount++;
             LevelCompletedSignal.Emit(LevelCount);
-            Debug.Log($"Level {LevelCount} has been completed");
             Save();
         }
 

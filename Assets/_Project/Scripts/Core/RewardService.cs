@@ -37,12 +37,12 @@ namespace _Project.Scripts.Core
 
         private float CalculateSoftReward(int level)
         {
-            return _enemyLibrary.EnemyReward * Mathf.Pow(1.12f, level - 1);
+            return MathfRound.Round(_enemyLibrary.EnemyReward * Mathf.Pow(1.12f, level - 1));
         }
 
         private float CalculateHardReward(int level)
         {
-            return _enemyLibrary.BossReward * Mathf.Pow(1f, level - 1);
+            return MathfRound.Round(_enemyLibrary.BossReward * Mathf.Pow(1f, level - 1));
         }
 
         private void ApplyReward(float reward, CurrencyType currencyType)
