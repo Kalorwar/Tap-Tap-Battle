@@ -25,6 +25,10 @@ namespace _Project.Scripts.Core
             Container.Bind<TapDamageUpgradeService>().AsSingle().NonLazy();
             Container.Bind<IReadOnlyList<AssistantConfig>>().FromInstance(_assistantConfigs).AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<AssistantService>().AsSingle().NonLazy();
+            Container.Bind<OfflineProgressService>().AsSingle().NonLazy();
+            Container.Bind<_Project.Scripts.Achievements.AchievementService>().AsSingle().NonLazy();
+            Container.Bind<DailyRewardService>().AsSingle().NonLazy();
+            Container.Bind<DailyQuestService>().AsSingle().NonLazy();
         }
     }
 }
